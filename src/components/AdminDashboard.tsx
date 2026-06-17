@@ -997,7 +997,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             ].map((op, idx) => (
               <div 
                 key={idx} 
-                className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden p-5 flex flex-col justify-between gap-4 shadow-md bg-gradient-to-br ${op.bgClass} hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
+                className={`bg-slate-900/60 backdrop-blur-sm border border-slate-700 rounded-xl overflow-hidden p-5 flex flex-col justify-between gap-4 shadow-md bg-gradient-to-br ${op.bgClass} hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
                 id={`operator-card-${idx}`}
               >
                 <div className="space-y-3">

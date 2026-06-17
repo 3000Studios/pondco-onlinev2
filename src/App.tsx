@@ -436,7 +436,6 @@ export default function App() {
       >
         <source src="/runway.mp4" type="video/mp4" />
       </video>
-      <div className="fixed inset-0 bg-white/20 z-0 pointer-events-none" />
 
       <div 
         className={`relative z-10 min-h-screen flex flex-col transition-all duration-300 ${
@@ -783,8 +782,10 @@ export default function App() {
 
             {/* BRIEF DIRECT CIVIL OUTCOMES CARDS GRID */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className={`p-4 rounded border shadow-xs flex items-center justify-between ${
-                settings.highContrast ? 'border-2 border-black bg-white text-black' : 'bg-white border-slate-200'
+              <div 
+                onClick={() => handleTabSelect('logs', 'Public Audit Ledger')}
+                className={`p-4 rounded border shadow-xs flex items-center justify-between cursor-pointer hover:scale-[1.02] transition-transform ${
+                settings.highContrast ? 'border-2 border-black bg-white text-black' : 'bg-white/80 backdrop-blur-sm border-slate-200'
               }`}>
                 <div>
                   <div className="text-xs font-bold font-mono text-slate-400 uppercase">LEDE RECORDS INDEXED</div>

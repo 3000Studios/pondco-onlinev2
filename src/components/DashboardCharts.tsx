@@ -144,7 +144,7 @@ export const DashboardCharts: React.FC<DashboardChartsProps> = ({
   return (
     <section 
       className={`p-6 rounded-lg border shadow-xs transition-all space-y-6 ${
-        settings.highContrast ? 'border-2 border-black bg-white text-black' : 'bg-white border-slate-200'
+        settings.highContrast ? 'border-2 border-black bg-white text-black' : 'bg-slate-900/60 backdrop-blur-md border border-white/10 text-white'
       }`}
       aria-label="Federal registries interactive data visualizations"
     >

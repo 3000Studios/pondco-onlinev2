@@ -138,10 +138,13 @@ export const Navigation: React.FC<NavigationProps> = ({
     <nav 
       aria-label="Federal Portal Section Navigation" 
       role="navigation"
-      className="w-full bg-white border-b border-slate-200"
+      className="w-full bg-slate-900/60 backdrop-blur-md border-b border-white/10"
     >
-      <div className="md:hidden p-2">
-         <select onChange={(e) => handleTabSelect(e.target.value, filteredItems.find(i => i.id === e.target.value)?.label || '')} className="w-full p-2 border rounded">
+      <div className="md:hidden p-3 bg-slate-900/90 border-b border-slate-700">
+         <select 
+           onChange={(e) => handleTabSelect(e.target.value, filteredItems.find(i => i.id === e.target.value)?.label || '')} 
+           className="w-full p-3 bg-slate-800 text-white rounded-lg border border-slate-600 focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+         >
             {filteredItems.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}
          </select>
       </div>
@@ -149,7 +152,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         {/* Navigation list with semantic tablist role */}
         <ul 
           role="tablist" 
-          className="flex flex-row items-stretch overflow-x-auto gap-1 py-1 border-slate-200"
+          className="flex flex-row items-stretch overflow-x-auto gap-1 py-1 border-transparent"
         >
           {filteredItems.map((item) => {
             const Icon = item.icon;
