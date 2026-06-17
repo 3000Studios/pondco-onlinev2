@@ -1,18 +1,21 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC2VCBOszos800f-m8inp7XhJkLH4FKkKs",
+  apiKey: "AIzaSyC2VCBOszos800f-m8inp7XhJkLH4KFkKs",
   authDomain: "gen-lang-client-0914367944.firebaseapp.com",
   projectId: "gen-lang-client-0914367944",
   storageBucket: "gen-lang-client-0914367944.firebasestorage.app",
   messagingSenderId: "76706851259",
-  appId: "1:76706851259:web:2904f9ea088e7026d93c9e"
+  appId: "1:76706851259:web:bc534d20b8152cd7d93c9e",
+  measurementId: "G-DH1WBK8YWK"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
