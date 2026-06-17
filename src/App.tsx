@@ -420,14 +420,29 @@ export default function App() {
   const citizenRequestsCount = logs.filter(l => l.category === 'PUBLIC_REQUEST').length;
 
   return (
-    <div 
-      className={`min-h-screen flex flex-col font-sans transition-all duration-300 ${
-        settings.highContrast ? 'high-contrast bg-white text-black' : 'bg-slate-50 text-slate-900'
-      }`}
+    <div
+      className="relative min-h-screen"
       style={{ 
         fontSize: settings.fontSize === 'large' ? '112.5%' : settings.fontSize === 'extra' ? '125%' : '100%' 
       }}
     >
+      {/* Global Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="fixed inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/runway.mp4" type="video/mp4" />
+      </video>
+      <div className="fixed inset-0 bg-white/20 z-0 pointer-events-none" />
+
+      <div 
+        className={`relative z-10 min-h-screen flex flex-col transition-all duration-300 ${
+          settings.highContrast ? 'high-contrast bg-white text-black' : 'bg-transparent text-slate-900'
+        }`}
+      >
       {/* RED MOCK-UP DISCLAIMER TICKER */}
       <div 
         className="w-full bg-red-600 text-white text-[11px] py-2 px-4 shadow-md font-bold text-center flex flex-wrap items-center justify-center gap-2 relative z-[100] animate-pulse border-b border-red-800 uppercase tracking-widest leading-relaxed"
@@ -1367,5 +1382,6 @@ export default function App() {
         </div>
       </footer>
     </div>
+  </div>
   );
 }

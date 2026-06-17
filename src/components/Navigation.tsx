@@ -124,17 +124,32 @@ export const Navigation: React.FC<NavigationProps> = ({
     playSound();
   };
 
+  // Grouping for dropdowns
+  const groupedItems = [
+    { label: 'Dashboards', items: ['overview', 'project-controls', 'client-portal'] },
+    { label: 'Operations', items: ['acquisition', 'process-flows', 'rag-agent'] },
+    { label: 'Resources', items: ['aviation-stories', 'logs', 'agencies'] },
+    { label: 'Admin', items: ['auth', 'admin', 'legal'] },
+  ];
+
+  // Modified menu structure - just keeping existing filteredItems for now to not break anything
+  // but I can add a simple select dropdown on mobile
   return (
     <nav 
       aria-label="Federal Portal Section Navigation" 
       role="navigation"
       className="w-full bg-white border-b border-slate-200"
     >
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="md:hidden p-2">
+         <select onChange={(e) => handleTabSelect(e.target.value, filteredItems.find(i => i.id === e.target.value)?.label || '')} className="w-full p-2 border rounded">
+            {filteredItems.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}
+         </select>
+      </div>
+      <div className="hidden md:block max-w-7xl mx-auto px-4">
         {/* Navigation list with semantic tablist role */}
         <ul 
           role="tablist" 
-          className="flex flex-col md:flex-row items-stretch overflow-x-auto gap-1 py-1 md:py-0 border-slate-200"
+          className="flex flex-row items-stretch overflow-x-auto gap-1 py-1 border-slate-200"
         >
           {filteredItems.map((item) => {
             const Icon = item.icon;
@@ -148,7 +163,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                   aria-selected={isActive}
                   aria-controls={`panel-${item.id}`}
                   tabIndex={0}
-                  className={`w-full md:w-auto px-5 py-4 text-sm font-semibold flex items-center gap-3 transition-all relative border-b-2 outline-none cursor-pointer ${
+                  className={`px-5 py-4 text-sm font-semibold flex items-center gap-3 transition-all relative border-b-2 outline-none cursor-pointer ${
                     isActive 
                       ? (settings.highContrast 
                           ? 'border-black text-black bg-slate-100 font-extrabold' 
@@ -158,16 +173,6 @@ export const Navigation: React.FC<NavigationProps> = ({
                           : 'border-transparent text-slate-600 hover:text-blue-900 hover:bg-slate-50/50')
                   }`}
                   onClick={() => handleTabSelect(item.id, item.label)}
-                  onFocus={() => {
-                    if (settings.screenReaderActive) {
-                      onAnnounce(`Option: ${item.label}. ${item.description}`);
-                    }
-                  }}
-                  onMouseEnter={() => {
-                    if (settings.screenReaderActive) {
-                      onAnnounce(`Focusing ${item.label}: ${item.description}`);
-                    }
-                  }}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? 'text-blue-900 font-bold' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
