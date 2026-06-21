@@ -54,9 +54,9 @@ const DOMAINS: DomainRecord[] = [
     id: '3000studios',
     domain: '3000studios.vip',
     url: 'https://3000studios.vip/',
-    role: 'Master owner gateway',
-    repo: 'https://github.com/3000Studios/pondco-onlinev2',
-    cloudflareProject: 'pondco-online',
+    role: 'VIP owner gateway',
+    repo: 'https://github.com/3000Studios/3000studios-vip',
+    cloudflareProject: '3000studios-vip',
   },
   {
     id: 'pondco',
