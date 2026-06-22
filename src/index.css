@@ -51,15 +51,6 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   overflow: hidden;
   transform-style: preserve-3d;
 }
-.wallpaperVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.24;
-  filter: saturate(1.2) contrast(1.25) brightness(0.7);
-}
 .wallpaperShade {
   position: absolute;
   inset: 0;
@@ -67,6 +58,30 @@ button:focus-visible, input:focus-visible, a:focus-visible {
     radial-gradient(circle at var(--px) var(--py), rgba(32, 255, 196, 0.16), transparent 32%),
     radial-gradient(circle at 72% 18%, rgba(245, 176, 69, 0.14), transparent 28%),
     linear-gradient(90deg, rgba(1, 6, 8, 0.94), rgba(7, 12, 16, 0.66) 44%, rgba(2, 3, 5, 0.9));
+}
+.ambientWave {
+  position: absolute;
+  inset: auto;
+  border-radius: 999px;
+  filter: blur(22px);
+  opacity: 0.45;
+  mix-blend-mode: screen;
+}
+.ambientWaveA {
+  left: -8vw;
+  top: 8vh;
+  width: 42vw;
+  height: 42vw;
+  background: radial-gradient(circle, rgba(125, 249, 212, 0.28), transparent 68%);
+  animation: driftOrb 18s ease-in-out infinite alternate;
+}
+.ambientWaveB {
+  right: -10vw;
+  bottom: -4vh;
+  width: 48vw;
+  height: 48vw;
+  background: radial-gradient(circle, rgba(241, 183, 78, 0.2), transparent 66%);
+  animation: driftOrb 22s ease-in-out infinite alternate-reverse;
 }
 .sceneGrid {
   position: absolute;
@@ -570,6 +585,10 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 @keyframes gridDrift { from { background-position: 0 0; } to { background-position: 0 128px; } }
 @keyframes codeFall { from { transform: translateY(-18vh); } to { transform: translateY(18vh); } }
 @keyframes ringTurn { from { transform: translate(-50%, -50%) rotateX(68deg) rotateZ(0deg); } to { transform: translate(-50%, -50%) rotateX(68deg) rotateZ(360deg); } }
+@keyframes driftOrb {
+  from { transform: translate3d(0, 0, 0) scale(0.92); }
+  to { transform: translate3d(3vw, -2vh, 0) scale(1.08); }
+}
 @keyframes curtainPulse { 0%, 100% { background: rgba(1,5,5,0); } 18%, 68% { background: rgba(1,5,5,0.84); } }
 @keyframes breachRain { from { transform: translateY(-18%); } to { transform: translateY(18%); } }
 @keyframes flashStrike { 0%, 100% { opacity: 0; } 18%, 32%, 62% { opacity: 1; } }

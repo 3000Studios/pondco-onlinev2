@@ -151,9 +151,10 @@ function LiveWallpaper({ breach }: { breach: boolean }) {
 
   return (
     <div className="wallpaper" aria-hidden="true">
-      <video className="wallpaperVideo" autoPlay muted loop playsInline src="/background-video.mp4" />
       <div className="wallpaperShade" />
       <div className="sceneGrid" />
+      <div className="ambientWave ambientWaveA" />
+      <div className="ambientWave ambientWaveB" />
       <div className="orbital orbitalA" />
       <div className="orbital orbitalB" />
       <div className="glassShard shardA" />
@@ -420,7 +421,6 @@ export default function App() {
         username: '3000 Studios Owner',
         email: 'owner@3000studios.vip',
         clearanceLevel: 'SYSTEM_ADMIN',
-        token: 'LOCAL_OWNER_SESSION',
         authenticatedTime: new Date().toISOString(),
         avatarIcon: 'Shield',
       }),
