@@ -26,7 +26,7 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   outline-offset: 4px;
 }
 
-.gateScreen, .dashboardShell {
+.dashboardShell {
   --px: 50%;
   --py: 50%;
   position: relative;
@@ -36,20 +36,6 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   background:
     radial-gradient(circle at var(--px) var(--py), rgba(125, 249, 212, 0.16), transparent 25rem),
     linear-gradient(135deg, #061116, #020608 52%, #120a0c);
-}
-
-.gateScreen {
-  display: grid;
-  place-items: center;
-  padding: clamp(18px, 4vw, 64px);
-}
-
-.wallpaper {
-  position: absolute;
-  inset: 0;
-  z-index: -5;
-  overflow: hidden;
-  transform-style: preserve-3d;
 }
 .wallpaperShade {
   position: absolute;
@@ -146,115 +132,7 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   width: min(calc(100vw - 28px), 440px);
   perspective: 1200px;
 }
-.modalHalo {
-  position: absolute;
-  inset: -34px;
-  border-radius: 42px;
-  background: radial-gradient(circle at var(--px) var(--py), rgba(125,249,212,0.22), transparent 40%),
-    linear-gradient(135deg, rgba(125,249,212,0.13), rgba(241,183,78,0.1));
-  filter: blur(24px);
-  opacity: 0.9;
-}
-.fakeLoginModal {
-  position: relative;
-  display: grid;
-  gap: 18px;
-  width: 100%;
-  overflow: hidden;
-  padding: clamp(28px, 5vw, 42px);
-  border: 1px solid rgba(220,255,243,0.18);
-  border-radius: 30px;
-  background: linear-gradient(145deg, rgba(9,18,25,0.96), rgba(3,7,11,0.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -40px 80px rgba(0,0,0,0.28), 0 38px 110px rgba(0,0,0,0.56);
-  transform: rotateX(calc((var(--py) - 50%) * -0.025)) rotateY(calc((var(--px) - 50%) * 0.02));
-  transition: transform 180ms ease, border-color 180ms ease;
-  backdrop-filter: blur(24px) saturate(1.2);
-}
-.fakeLoginModal::before {
-  content: '';
-  position: absolute;
-  inset: 1px;
-  pointer-events: none;
-  border-radius: 29px;
-  background: linear-gradient(90deg, transparent, rgba(125,249,212,0.12), transparent),
-    repeating-linear-gradient(180deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 7px);
-  opacity: 0.42;
-  mask-image: linear-gradient(180deg, black, transparent 82%);
-}
-.brandLock {
-  position: relative;
-  width: 76px;
-  height: 80px;
-  margin: 0 auto 2px;
-  display: grid;
-  place-items: end center;
-  color: #ffe3a4;
-  filter: drop-shadow(0 0 24px rgba(125,249,212,0.18));
-}
-.brandLockShackle {
-  position: absolute;
-  top: 0;
-  width: 48px;
-  height: 42px;
-  border: 8px solid rgba(241,183,78,0.9);
-  border-bottom: 0;
-  border-radius: 48px 48px 0 0;
-}
-.brandLockBody {
-  position: relative;
-  width: 70px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  border-radius: 16px;
-  border: 1px solid rgba(255,234,176,0.46);
-  background: linear-gradient(140deg, rgba(241,183,78,0.24), rgba(125,249,212,0.1)), rgba(5,9,11,0.82);
-  font: 900 0.82rem / 1 var(--font-mono);
-  letter-spacing: 0.18em;
-}
-.gateEyebrow {
-  color: #f1b74e;
-  font: 900 0.68rem / 1 var(--font-mono);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-.fakeLoginModal .gateEyebrow { text-align: center; }
-.fakeLoginModal h1 {
-  margin: 0;
-  text-align: center;
-  color: #f7fff9;
-  font-size: clamp(2.35rem, 8vw, 4.5rem);
-  line-height: 0.9;
-  letter-spacing: -0.055em;
-  overflow-wrap: anywhere;
-  text-shadow: 0 2px 0 rgba(255,255,255,0.08), 0 0 36px rgba(125,249,212,0.14), 0 24px 54px rgba(0,0,0,0.58);
-}
-.fakeLoginModal p {
-  margin: -4px 0 8px;
-  color: rgba(237,253,248,0.72);
-  text-align: center;
-  font-size: 0.96rem;
-  line-height: 1.65;
-}
-.fakeLoginModal label {
-  display: grid;
-  gap: 8px;
-  color: rgba(237,253,248,0.72);
-  font: 800 0.72rem / 1 var(--font-mono);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-.fakeLoginModal input {
-  height: 54px;
-  width: 100%;
-  border: 1px solid rgba(237,253,248,0.16);
-  border-radius: 16px;
-  color: #f7fff9;
-  background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)), rgba(1,4,7,0.42);
-  padding: 0 16px;
-  box-shadow: inset 0 0 24px rgba(0,0,0,0.28);
-}
-.decoyButton, .iconButton, .toolButton {
+.iconButton, .toolButton {
   border: 1px solid rgba(241,183,78,0.48);
   border-radius: 999px;
   color: #fff8dc;
@@ -264,94 +142,11 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   font-weight: 900;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
-.decoyButton { min-height: 54px; }
-.decoyButton:hover, .iconButton:hover, .toolButton:hover {
+.iconButton:hover, .toolButton:hover {
   transform: translateY(-2px);
   border-color: rgba(125,249,212,0.65);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 22px 58px rgba(0,0,0,0.36), 0 0 30px rgba(125,249,212,0.13);
 }
-.decoyStatus {
-  min-height: 18px;
-  color: rgba(237,253,248,0.52);
-  text-align: center;
-  font: 700 0.76rem / 1.35 var(--font-mono);
-}
-.copyrightButton {
-  position: fixed;
-  left: 50%;
-  bottom: 14px;
-  z-index: 12;
-  transform: translateX(-50%);
-  border: 0;
-  color: rgba(237,253,248,0.32);
-  background: transparent;
-  padding: 8px 10px;
-  font: 800 0.68rem / 1 var(--font-mono);
-  letter-spacing: 0.08em;
-  transition: color 180ms ease, text-shadow 180ms ease;
-}
-.copyrightButton:hover {
-  color: rgba(237,253,248,0.86);
-  text-shadow: 0 0 18px rgba(125,249,212,0.36);
-}
-.matrixCurtain {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  background: rgba(1,5,5,0.1);
-}
-.matrixCurtain.active {
-  opacity: 1;
-  visibility: visible;
-  animation: curtainPulse 3.6s ease both;
-}
-.matrixColumns {
-  position: absolute;
-  inset: -20% 0;
-  display: grid;
-  grid-template-columns: repeat(34, minmax(18px, 1fr));
-  overflow: hidden;
-  color: rgba(77,255,169,0.88);
-  font: 900 clamp(11px, 1.2vw, 18px) / 0.95 var(--font-mono);
-  text-shadow: 0 0 12px rgba(77,255,169,0.9), 0 0 36px rgba(77,255,169,0.28);
-}
-.matrixColumns span { writing-mode: vertical-rl; animation: breachRain 900ms linear infinite; }
-.breachCopy {
-  position: relative;
-  display: grid;
-  gap: 12px;
-  width: min(90vw, 620px);
-  padding: 28px;
-  border: 1px solid rgba(77,255,169,0.36);
-  border-radius: 24px;
-  background: rgba(0,8,5,0.72);
-  box-shadow: 0 0 80px rgba(77,255,169,0.22);
-  text-align: center;
-}
-.breachCopy strong {
-  color: #9affcd;
-  font: 900 clamp(2rem, 8vw, 5rem) / 0.9 var(--font-mono);
-  letter-spacing: -0.05em;
-}
-.breachCopy span {
-  color: rgba(234,255,246,0.78);
-  font: 700 0.9rem / 1.4 var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-.breachFlash {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,0.82), transparent 24%, rgba(77,255,169,0.4)), rgba(255,255,255,0.18);
-  mix-blend-mode: screen;
-  animation: flashStrike 680ms steps(2, end) 4;
-}
-.isBreached .fakeLoginModal { animation: modalGlitch 420ms steps(2, end) 7; border-color: rgba(77,255,169,0.9); }
 
 .dashboardShell {
   padding: clamp(18px, 3vw, 42px);
@@ -608,25 +403,6 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 }
 
 @media (max-width: 620px) {
-  .gateScreen {
-    padding: 14px;
-  }
-  .fakeLoginShell {
-    width: min(342px, calc(100vw - 32px));
-    max-width: calc(100vw - 32px);
-  }
-  .fakeLoginModal {
-    padding: 28px 24px 26px;
-    border-radius: 24px;
-    transform: none;
-  }
-  .fakeLoginModal h1 {
-    font-size: clamp(2.1rem, 11vw, 2.95rem);
-    line-height: 0.96;
-    letter-spacing: -0.045em;
-  }
-  .fakeLoginModal p { font-size: 0.9rem; }
-  .brandLock { transform: scale(0.88); }
   .metricGrid, .detailGrid, .toolGrid, .siteRail { grid-template-columns: 1fr; }
   .dashboardShell { padding: 16px 14px 28px; }
   .panelTop { display: grid; }
@@ -639,5 +415,4 @@ button:focus-visible, input:focus-visible, a:focus-visible {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
   }
-  .fakeLoginModal { transform: none; }
 }

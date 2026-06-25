@@ -1,4 +1,4 @@
-import { FormEvent, PointerEvent, Suspense, lazy, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState, type CSSProperties } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -8,7 +8,6 @@ import {
   Code2,
   Eye,
   Globe2,
-  Lock,
   Radio,
   RefreshCw,
   Server,
@@ -20,7 +19,6 @@ import {
 
 const LegacyPortal = lazy(() => import('./LegacyPortal'));
 
-type GateMode = 'sealed' | 'breach' | 'owner' | 'legacy';
 type DomainStatus = 'online' | 'warning' | 'offline' | 'unknown';
 
 interface DomainRecord {
@@ -46,8 +44,6 @@ interface DomainCheck extends DomainRecord {
     frameOptions: boolean;
   };
 }
-
-const OWNER_SESSION_KEY = 'airport_ops_console_open';
 
 const DOMAINS: DomainRecord[] = [
   {
@@ -91,51 +87,10 @@ const DOMAINS: DomainRecord[] = [
 ];
 
 function createMatrixRows(count: number) {
-  const glyphs = '01ZXCVBNM3000STUDIOSVIPACCESSDENIED';
+  const glyphs = '01ZXCVBNMPOUNDCOAIRPORTRUNWAYTOWER';
   return Array.from({ length: count }, (_, row) =>
     Array.from({ length: 46 }, (_, column) => glyphs[(row * 11 + column * 7) % glyphs.length]).join(''),
   );
-}
-
-function usePointerLight() {
-  const [pointer, setPointer] = useState({ x: 50, y: 50 });
-
-  function onPointerMove(event: PointerEvent<HTMLElement>) {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    setPointer({
-      x: ((event.clientX - bounds.left) / bounds.width) * 100,
-      y: ((event.clientY - bounds.top) / bounds.height) * 100,
-    });
-  }
-
-  return { pointer, onPointerMove };
-}
-
-function playBreachSound() {
-  const AudioContextCtor =
-    window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-  if (!AudioContextCtor) return;
-
-  const context = new AudioContextCtor();
-  const master = context.createGain();
-  master.gain.setValueAtTime(0.0001, context.currentTime);
-  master.gain.exponentialRampToValueAtTime(0.2, context.currentTime + 0.03);
-  master.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 1.35);
-  master.connect(context.destination);
-
-  [42, 77, 131, 313, 611].forEach((frequency, index) => {
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.type = index % 2 ? 'sawtooth' : 'square';
-    oscillator.frequency.setValueAtTime(frequency, context.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(Math.max(24, frequency * 0.38), context.currentTime + 1);
-    gain.gain.setValueAtTime(0.14 / (index + 1), context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 1.22);
-    oscillator.connect(gain);
-    gain.connect(master);
-    oscillator.start(context.currentTime + index * 0.025);
-    oscillator.stop(context.currentTime + 1.28);
-  });
 }
 
 function LiveWallpaper({ breach }: { breach: boolean }) {
@@ -159,83 +114,6 @@ function LiveWallpaper({ breach }: { breach: boolean }) {
       </div>
       {breach ? <div className="breachFlash" /> : null}
     </div>
-  );
-}
-
-function GateScreen({ onOwnerEntry }: { onOwnerEntry: () => void }) {
-  const [mode, setMode] = useState<GateMode>('sealed');
-  const [user, setUser] = useState('');
-  const [pass, setPass] = useState('');
-  const timer = useRef<number | null>(null);
-  const { pointer, onPointerMove } = usePointerLight();
-  const breach = mode === 'breach';
-
-  useEffect(() => () => {
-    if (timer.current) window.clearTimeout(timer.current);
-  }, []);
-
-  function triggerBreach() {
-    setMode('breach');
-    setPass('');
-    playBreachSound();
-    if (timer.current) window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setMode('sealed'), 3600);
-  }
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    triggerBreach();
-  }
-
-  return (
-    <main
-      className={`gateScreen ${breach ? 'isBreached' : ''}`}
-      onPointerMove={onPointerMove}
-      style={{ '--px': `${pointer.x}%`, '--py': `${pointer.y}%` } as CSSProperties}
-    >
-      <LiveWallpaper breach={breach} />
-      <section className="fakeLoginShell" aria-label="Airport operations sealed public entry">
-        <div className="modalHalo" />
-        <form className="fakeLoginModal" onSubmit={handleSubmit}>
-          <div className="brandLock" aria-hidden="true">
-            <span className="brandLockShackle" />
-            <span className="brandLockBody">POND</span>
-          </div>
-          <span className="gateEyebrow">Airport control</span>
-          <h1>Pondco Airport</h1>
-          <p>Public access is a sealed terminal shell. Operations tools are not exposed from this screen.</p>
-
-          <label>
-            <span>User name</span>
-            <input autoComplete="off" value={user} onChange={(event) => setUser(event.target.value)} />
-          </label>
-          <label>
-            <span>Passcode</span>
-            <input autoComplete="off" type="password" value={pass} onChange={(event) => setPass(event.target.value)} />
-          </label>
-          <button className="decoyButton" type="submit">Attempt access</button>
-          <div className="decoyStatus" aria-live="polite">
-            {breach ? 'Access denied. Trace bloom active.' : 'Public credentials are decoy-only.'}
-          </div>
-        </form>
-      </section>
-
-      <section className={`matrixCurtain ${breach ? 'active' : ''}`} aria-hidden={!breach}>
-        <div className="matrixColumns">
-          {createMatrixRows(34).map((row, index) => (
-            <span key={`curtain-${index}`}>{row}</span>
-          ))}
-        </div>
-        <div className="breachCopy">
-          <strong>ACCESS DENIED</strong>
-          <span>Public gate is synthetic. Owner console remains hidden.</span>
-        </div>
-      </section>
-
-      <button className="copyrightButton" type="button" onClick={onOwnerEntry} aria-label="Airport control entry">
-        © 2026 Pondco Airport
-      </button>
-    </main>
   );
 }
 
@@ -401,24 +279,7 @@ function MasterDashboard({ onOpenLegacy }: { onOpenLegacy: () => void }) {
 }
 
 export default function App() {
-  const [mode, setMode] = useState<GateMode>(() =>
-    sessionStorage.getItem(OWNER_SESSION_KEY) === '1' ? 'owner' : 'sealed',
-  );
-
-  function enterOwnerMode() {
-    sessionStorage.setItem(OWNER_SESSION_KEY, '1');
-      localStorage.setItem(
-        'civil_portal_active_session',
-        JSON.stringify({
-          username: 'Pondco Airport Operator',
-          email: 'ops@pondco.online',
-          clearanceLevel: 'SYSTEM_ADMIN',
-          authenticatedTime: new Date().toISOString(),
-          avatarIcon: 'Shield',
-        }),
-      );
-    setMode('owner');
-  }
+  const [mode, setMode] = useState<'dashboard' | 'legacy'>('dashboard');
 
   if (mode === 'legacy') {
     return (
@@ -428,9 +289,5 @@ export default function App() {
     );
   }
 
-  if (mode === 'owner') {
-    return <MasterDashboard onOpenLegacy={() => setMode('legacy')} />;
-  }
-
-  return <GateScreen onOwnerEntry={enterOwnerMode} />;
+  return <MasterDashboard onOpenLegacy={() => setMode('legacy')} />;
 }
