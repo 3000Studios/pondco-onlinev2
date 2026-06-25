@@ -47,22 +47,14 @@ interface DomainCheck extends DomainRecord {
   };
 }
 
-const OWNER_SESSION_KEY = 'studio_owner_console_open';
+const OWNER_SESSION_KEY = 'airport_ops_console_open';
 
 const DOMAINS: DomainRecord[] = [
-  {
-    id: '3000studios',
-    domain: '3000studios.vip',
-    url: 'https://3000studios.vip/',
-    role: 'VIP owner gateway',
-    repo: 'https://github.com/3000Studios/3000studios-vip',
-    cloudflareProject: '3000studios-vip',
-  },
   {
     id: 'pondco',
     domain: 'pondco.online',
     url: 'https://pondco.online/',
-    role: 'Aviation portal',
+    role: 'Airport operations portal',
     repo: 'https://github.com/3000Studios/pondco-online',
     cloudflareProject: 'pondco-online',
   },
@@ -202,16 +194,16 @@ function GateScreen({ onOwnerEntry }: { onOwnerEntry: () => void }) {
       style={{ '--px': `${pointer.x}%`, '--py': `${pointer.y}%` } as CSSProperties}
     >
       <LiveWallpaper breach={breach} />
-      <section className="fakeLoginShell" aria-label="3000 Studios sealed public entry">
+      <section className="fakeLoginShell" aria-label="Airport operations sealed public entry">
         <div className="modalHalo" />
         <form className="fakeLoginModal" onSubmit={handleSubmit}>
           <div className="brandLock" aria-hidden="true">
             <span className="brandLockShackle" />
-            <span className="brandLockBody">3000</span>
+            <span className="brandLockBody">POND</span>
           </div>
-          <span className="gateEyebrow">Private system</span>
-          <h1>3000 Studios</h1>
-          <p>Public access is a sealed decoy terminal. Owner tools are not exposed from this screen.</p>
+          <span className="gateEyebrow">Airport control</span>
+          <h1>Pondco Airport</h1>
+          <p>Public access is a sealed terminal shell. Operations tools are not exposed from this screen.</p>
 
           <label>
             <span>User name</span>
@@ -240,8 +232,8 @@ function GateScreen({ onOwnerEntry }: { onOwnerEntry: () => void }) {
         </div>
       </section>
 
-      <button className="copyrightButton" type="button" onClick={onOwnerEntry} aria-label="Copyright owner entry">
-        © 2026 3000 Studios
+      <button className="copyrightButton" type="button" onClick={onOwnerEntry} aria-label="Airport control entry">
+        © 2026 Pondco Airport
       </button>
     </main>
   );
@@ -305,9 +297,9 @@ function MasterDashboard({ onOpenLegacy }: { onOpenLegacy: () => void }) {
       <LiveWallpaper breach={false} />
       <header className="dashboardHeader">
         <div>
-          <span className="gateEyebrow">Owner console</span>
-          <h1>3000 Studios Master Site</h1>
-          <p>Live domain monitor, repo launchpad, deploy readiness cockpit, and private owner workspace.</p>
+          <span className="gateEyebrow">Airport console</span>
+          <h1>Pondco Airport Operations</h1>
+          <p>Live domain monitor, repo launchpad, deploy readiness cockpit, and airport operations workspace.</p>
         </div>
         <div className="dashboardActions">
           <button type="button" onClick={refreshDomains} className="iconButton">
@@ -415,16 +407,16 @@ export default function App() {
 
   function enterOwnerMode() {
     sessionStorage.setItem(OWNER_SESSION_KEY, '1');
-    localStorage.setItem(
-      'civil_portal_active_session',
-      JSON.stringify({
-        username: '3000 Studios Owner',
-        email: 'owner@3000studios.vip',
-        clearanceLevel: 'SYSTEM_ADMIN',
-        authenticatedTime: new Date().toISOString(),
-        avatarIcon: 'Shield',
-      }),
-    );
+      localStorage.setItem(
+        'civil_portal_active_session',
+        JSON.stringify({
+          username: 'Pondco Airport Operator',
+          email: 'ops@pondco.online',
+          clearanceLevel: 'SYSTEM_ADMIN',
+          authenticatedTime: new Date().toISOString(),
+          avatarIcon: 'Shield',
+        }),
+      );
     setMode('owner');
   }
 
