@@ -258,16 +258,12 @@ function MasterDashboard({ onOpenLegacy }: { onOpenLegacy: () => void }) {
             <button type="button" className="toolButton" onClick={() => copyDeployCommand(selected)}>
               <Clipboard /> Copy deploy command
             </button>
-            <button type="button" className="toolButton disabled" disabled title="Requires server-side Cloudflare deploy executor.">
-              <Lock /> One-click deploy needs server executor
-            </button>
           </div>
 
           <div className="readinessPanel">
             <h3><Sparkles /> Master-site build pipeline</h3>
             <ul>
               <li><CheckCircle2 /> Public surface sealed behind synthetic login.</li>
-              <li><CheckCircle2 /> Real owner entry is the copyright control.</li>
               <li><CheckCircle2 /> Domain checks run server-side through `/api/domain-status`.</li>
               <li><AlertTriangle /> One-click deploy must be backed by a server-side Cloudflare token executor before activation.</li>
             </ul>
